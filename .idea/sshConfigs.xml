@@ -2,7 +2,7 @@
 <project version="4">
   <component name="SshConfigs">
     <configs>
-      <sshConfig authType="PASSWORD" host="tlf93.synology.me" id="a6daac0b-8149-4a25-9451-badd3afb8cf8" port="25" nameFormat="DESCRIPTIVE" username="docker" />
+      <sshConfig authType="OPEN_SSH" host="tlf93.synology.me" id="a6daac0b-8149-4a25-9451-badd3afb8cf8" port="2355" nameFormat="DESCRIPTIVE" username="docker" />
     </configs>
   </component>
 </project>
