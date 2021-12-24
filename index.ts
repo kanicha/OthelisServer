@@ -9,8 +9,12 @@ const server = net.createServer(socket => {
     socket.on("data", data => {
         console.log(data.toString());
 
+        // 習得してきたデータをJson化
+        const jsonMessage = JSON.parse(data.toString());
+        jsonMessage._packetType = "Send";
+
         // データを受け取ったら送信
-        socket.write(Buffer.from("piyo"));
+        socket.write(Buffer.from(JSON.stringify(jsonMessage)));
     })
 });
 
