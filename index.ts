@@ -3,19 +3,11 @@
 // {} = 要素の一つをインポートする (, で複数インポートも可)
 import  * as net from "net";
 import {connect} from "net";
-import {Buffer} from "buffer";
+import distribute from "./src/Events/DistributeEvent"
 
 const server = net.createServer(socket => {
-    socket.on("data", data => {
-        console.log(data.toString());
-
-        // 習得してきたデータをJson化
-        const jsonMessage = JSON.parse(data.toString());
-        jsonMessage._packetType = "Send";
-
-        // データを受け取ったら送信
-        socket.write(Buffer.from(JSON.stringify(jsonMessage)));
-    })
+    // dataの内容, distributeを呼ぶ(ここで通信の仕分け)
+    socket.on("data", distribute.instance.Distribution);
 });
 
 server.listen(3359);
