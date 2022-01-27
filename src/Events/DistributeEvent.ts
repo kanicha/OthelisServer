@@ -1,4 +1,5 @@
 import {Buffer} from "buffer";
+import {Socket} from "net";
 
 export default class DistributeEvent
 {
@@ -19,18 +20,20 @@ export default class DistributeEvent
     }
 
     // 通信ごとに分配をおこなう関数
-    public Distribution(buffer: Buffer)
+    public async Distribution(buffer: Buffer, socket: Socket)
     {
         // 取得してきたデータをJson化
         const jsonMessage = JSON.parse(buffer.toString());
 
         // イベントの名前変数を用意 (文字列の中にファイル名(通信名))
-        const eventName = `On${jsonMessage._packetType}`;
-        const event = require(eventName);
+        const eventName = `./On${jsonMessage._packetType}`;
+        const event = await import(eventName).catch(reason => console.log(`関数「${eventName}」はありません`));
+
+        console.log(`パケット「${jsonMessage._packetType}」を受け取りました`);
 
         if (event)
         {
-            event(jsonMessage);
+            event.default(jsonMessage, socket);
         }
     }
 }

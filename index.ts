@@ -7,7 +7,7 @@ import distribute from "./src/Events/DistributeEvent"
 
 const server = net.createServer(socket => {
     // dataの内容, distributeを呼ぶ(ここで通信の仕分け)
-    socket.on("data", distribute.instance.Distribution);
+    socket.on("data", (buffer) => distribute.instance.Distribution(buffer, socket));
 });
 
 server.listen(3359);
