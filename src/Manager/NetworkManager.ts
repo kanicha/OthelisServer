@@ -60,6 +60,9 @@ export default class NetworkManager
             return;
         }
 
+        // 自分から見た相手の情報を送信しないように中身を空にする
+        buffer.id = "";
+
         // 送信
         this.SendMessage(buffer, opponentSocket);
     }
