@@ -15,7 +15,10 @@ export default class NetworkManager
     public static SendMessage(buffer, socket:Socket)
     {
         // 引数の渡されたbuffer(データ)をstring化
-        const message = JSON.stringify(buffer);
+        let message = JSON.stringify(buffer);
+
+        // パケットが結合してもクライアント側でSplitできるように、末尾に分割用記号を追記
+        message += "$";
 
         // 送信
         socket.write(message);
