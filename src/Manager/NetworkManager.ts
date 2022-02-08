@@ -30,6 +30,8 @@ export default class NetworkManager
      */
     public static BroadcastMessage(buffer)
     {
+        buffer.id = "";
+
         // for of文で_activePlayerの数にメッセージ送信(Send)をおこなう
         for (const player of this._playerManager._activePlayer) {
             this.SendMessage(buffer, player.socket);
